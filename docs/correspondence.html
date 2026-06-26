@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кореспонденція рахунків · Дебет/Кредит (ЄФВВ)</title>
+<meta name="description" content="Стислий бюлетень з кореспонденції рахунків: матриця Дебет/Кредит за типом рахунку, алгоритм складання проведень, золота шпаргалка та таблиця типових проведень з логікою. Для самопідготовки до ЄФВВ з обліку та фінансів.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Кореспонденція рахунків · Дебет/Кредит (ЄФВВ)">
+<meta property="og:description" content="Матриця Дебет/Кредит за типом рахунку, алгоритм проведень і таблиця типових проведень з логікою. Для самопідготовки до ЄФВВ.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="assets/favicon.svg">
+<style>
+  :root{--bg:#f4f6fb;--ink:#1c2433;--muted:#6b7280;--line:#e3e8f0;--accent:#2563eb;
+        --dt:#1d4ed8;--dt-bg:#eff6ff;--dt-line:#dbe6ff;--kt:#c2410c;--kt-bg:#fff7ed;--kt-line:#ffe2c2}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  header{background:linear-gradient(135deg,#1e293b,#334155);color:#fff;padding:34px 20px;text-align:center}
+  header h1{margin:0 0 6px;font-size:1.7rem}
+  header p{margin:0;opacity:.9}
+  .home{display:inline-block;margin-top:14px;color:#fff;background:rgba(255,255,255,.14);
+        text-decoration:none;padding:7px 16px;border-radius:9px;font-size:.85rem;font-weight:600}
+  .home:hover{background:rgba(255,255,255,.24)}
+  .wrap{max-width:880px;margin:0 auto;padding:20px 18px 60px}
+
+  /* toolbar: search + nav */
+  .toolbar{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 0 8px;margin-bottom:6px;
+           border-bottom:1px solid var(--line)}
+  section[data-sec]{scroll-margin-top:var(--anchor-offset,120px)}
+  .search{width:100%;padding:12px 16px;font-size:1rem;border:1px solid var(--line);border-radius:11px;
+          background:#fff;color:var(--ink);outline:none}
+  .search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+  .nav{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+  .nav a{text-decoration:none;font-size:.82rem;font-weight:600;color:#334155;background:#fff;
+         border:1px solid var(--line);padding:5px 11px;border-radius:20px}
+  .nav a:hover{border-color:var(--accent);color:var(--accent)}
+  .nav a.nav-home{color:#fff;background:var(--accent);border-color:var(--accent)}
+  .nav a.nav-home:hover{filter:brightness(.92)}
+
+  .note-top{background:#eef2ff;border:1px solid #dbe2ff;border-radius:12px;padding:12px 16px;
+            font-size:.9rem;color:#3b4a6b;margin:14px 0}
+
+  /* section */
+  section{margin-top:28px}
+  .sec-h{display:flex;align-items:center;gap:10px;border-left:6px solid var(--c);padding-left:12px;margin-bottom:4px}
+  .sec-h h2{margin:0;font-size:1.28rem;color:var(--cd)}
+  .sec-sub{font-size:.86rem;color:var(--muted);margin:2px 0 14px 18px}
+
+  .lead{font-size:.96rem;margin:4px 0 14px}
+  .lead b{color:var(--cd)}
+
+  /* matrix */
+  .matrix-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px;
+               box-shadow:0 1px 3px rgba(20,30,60,.05);overflow:hidden}
+  table.matrix{width:100%;border-collapse:separate;border-spacing:0;font-size:.96rem}
+  table.matrix th,table.matrix td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line)}
+  table.matrix thead th{background:#f1f5f9;color:#334155;font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
+  table.matrix thead th:nth-child(2),table.matrix thead th:nth-child(3){text-align:center}
+  table.matrix tbody tr:last-child td{border-bottom:0}
+  table.matrix td.type{font-weight:700}
+  table.matrix td.cell{text-align:center;font-weight:700;font-family:'Consolas','SF Mono',ui-monospace,monospace}
+  table.matrix td.dt{background:var(--dt-bg);color:var(--dt)}
+  table.matrix td.kt{background:var(--kt-bg);color:var(--kt)}
+  table.matrix tr.grp td{background:#0f172a;color:#cbd5e1;font-size:.74rem;font-weight:700;
+                         text-transform:uppercase;letter-spacing:.04em;padding:7px 14px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font-size:.85rem;color:#475569}
+  .legend .sw{display:inline-block;width:13px;height:13px;border-radius:4px;vertical-align:-1px;margin-right:6px}
+  .legend .sw.d{background:var(--dt)}
+  .legend .sw.k{background:var(--kt)}
+
+  /* memory callout */
+  .callout{margin-top:14px;background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1px solid #d1fae5;
+           border-radius:12px;padding:14px 16px;font-size:.95rem;line-height:1.55}
+  .callout b{color:#15803d}
+  .callout .d{color:var(--dt);font-weight:700}
+  .callout .k{color:var(--kt);font-weight:700}
+
+  /* numbered steps */
+  .steps{display:grid;gap:10px;margin-top:6px;counter-reset:step}
+  .step{background:#fff;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:12px;
+        padding:12px 16px 12px 54px;position:relative;font-size:.94rem}
+  .step::before{counter-increment:step;content:counter(step);position:absolute;left:12px;top:11px;
+                width:30px;height:30px;border-radius:9px;background:var(--c);color:#fff;font-weight:800;
+                display:flex;align-items:center;justify-content:center;font-size:.95rem}
+  .step b{color:var(--cd)}
+  .step .ex{display:block;margin-top:4px;font-size:.85rem;color:var(--muted)}
+
+  /* generic card */
+  .card2{background:#fff;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:12px;
+         padding:14px 16px;margin:11px 0;box-shadow:0 1px 2px rgba(20,30,60,.04)}
+  .card2 .name{font-weight:700;color:var(--cd);margin-bottom:7px}
+  .card2 .mini{font-family:'Consolas','SF Mono',ui-monospace,monospace;font-size:.9rem;color:#0f172a;
+               background:#f6f8fc;border:1px solid #e7ecf5;border-radius:8px;padding:8px 11px;margin:7px 0}
+  .card2 .why{font-size:.88rem;color:var(--muted);margin-top:4px}
+
+  /* entries table */
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table.entries{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);
+                border-radius:12px;overflow:hidden;font-size:.92rem;min-width:520px}
+  table.entries th,table.entries td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  table.entries thead th{background:#f1f5f9;color:#334155;font-size:.78rem;text-transform:uppercase;letter-spacing:.02em}
+  table.entries tbody tr:last-child td{border-bottom:0}
+  table.entries tbody tr:hover{background:#f8fafc}
+  table.entries td.op{font-weight:600;min-width:170px}
+  table.entries td.post{white-space:nowrap}
+  table.entries td.why{color:var(--muted);font-size:.85rem;line-height:1.5}
+  .dt-b,.kt-b{display:inline-block;font-family:'Consolas','SF Mono',ui-monospace,monospace;font-weight:700;
+              padding:2px 8px;border-radius:6px;font-size:.85rem}
+  .dt-b{background:var(--dt-bg);color:var(--dt);border:1px solid var(--dt-line)}
+  .kt-b{background:var(--kt-bg);color:var(--kt);border:1px solid var(--kt-line);margin-left:4px}
+
+  /* accounts grid */
+  .accts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+  .accts div{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 12px;font-size:.9rem}
+  .accts b{color:var(--cd);font-family:'Consolas',monospace;margin-right:4px}
+
+  /* exam quick-formula chips */
+  .exam{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-top:6px}
+  .exam div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 13px;font-size:.94rem;font-weight:600}
+  .exam .lab{color:var(--ink)}
+  .exam .d{color:var(--dt);font-family:'Consolas',monospace}
+  .exam .k{color:var(--kt);font-family:'Consolas',monospace}
+
+  .tip{margin-top:14px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:13px 16px;
+       font-size:.92rem;color:#713f12}
+  .tip::before{content:"🎯 ";}
+
+  .empty{display:none;text-align:center;color:var(--muted);padding:40px;font-size:.95rem}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;padding:24px 20px 0}
+  .disclaimer{max-width:660px;margin:10px auto 0;font-size:.72rem;line-height:1.45;color:var(--muted);opacity:.85}
+  mark{background:#fde68a;color:inherit;border-radius:3px;padding:0 1px}
+
+  /* ── мобільна адаптація: ~−20% від десктопу ── */
+  @media (max-width:560px){
+    html{font-size:80%}
+    header{padding:24px 16px}
+    .wrap{padding:14px 12px 48px}
+    .toolbar{padding:12px 0 6px}
+    .search{font-size:16px;padding:10px 13px}   /* 16px — щоб Safari не зумив при фокусі */
+    .nav a{padding:4px 9px}
+    .note-top{padding:10px 13px}
+    .sec-sub{margin-left:12px}
+    table.matrix th,table.matrix td{padding:9px 9px}
+    .step{padding:11px 13px 11px 48px}
+    .accts{grid-template-columns:1fr}
+    .exam{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Кореспонденція рахунків</h1>
+  <p>Дебет / Кредит — стислий бюлетень для складання проведень</p>
+  <a class="home" href="index.html">← На головну</a>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <input id="search" class="search" type="search" placeholder="🔍 Пошук операції, рахунку або проведення (напр. «зарплата», «28», «Дт 36»)…" autocomplete="off">
+    <nav class="nav" id="nav"></nav>
+  </div>
+
+  <div class="note-top">
+    Як зрозуміти будь-яке проведення без зубріння. У центрі — <b>матриця Дебет/Кредит за типом рахунку</b>:
+    вона показує, по якій стороні рахунок зростає, а по якій зменшується. Далі — алгоритм, золота шпаргалка
+    і таблиця типових проведень з поясненням логіки.
+  </div>
+
+  <!-- 1. Головне правило + матриця -->
+  <section id="rule" data-sec style="--c:#2563eb;--cd:#1d4ed8">
+    <div class="sec-h"><h2>1. Головне правило</h2></div>
+    <div class="sec-sub">Дебет і кредит — це сторони рахунку, а не «плюс» чи «мінус».</div>
+
+    <p class="lead" data-text="дебет і кредит самі по собі не означають плюс або мінус це сторона рахунку плюс чи мінус залежить від типу рахунку">
+      <b>Дебет і кредит самі по собі не означають «збільшення» чи «зменшення».</b>
+      Вони означають лише <b>сторону рахунку</b> (ліву — дебет, праву — кредит).
+      Чи це «+», чи «−», залежить від <b>типу рахунку</b>:
+    </p>
+
+    <div class="matrix-card" data-text="матриця тип рахунку активи зобов'язання власний капітал доходи витрати збільшення зменшення дебет кредит ростуть по дебету ростуть по кредиту">
+      <table class="matrix">
+        <thead>
+          <tr><th>Тип рахунку</th><th>Збільшення (▲)</th><th>Зменшення (▼)</th></tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><td colspan="3">Ростуть по дебету</td></tr>
+          <tr><td class="type">Активи</td><td class="cell dt">Дебет</td><td class="cell kt">Кредит</td></tr>
+          <tr><td class="type">Витрати</td><td class="cell dt">Дебет</td><td class="cell kt">Кредит</td></tr>
+          <tr class="grp"><td colspan="3">Ростуть по кредиту</td></tr>
+          <tr><td class="type">Зобов’язання</td><td class="cell kt">Кредит</td><td class="cell dt">Дебет</td></tr>
+          <tr><td class="type">Власний капітал</td><td class="cell kt">Кредит</td><td class="cell dt">Дебет</td></tr>
+          <tr><td class="type">Доходи</td><td class="cell kt">Кредит</td><td class="cell dt">Дебет</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><span class="sw d"></span>Дебет (Дт) — ліва сторона</span>
+      <span><span class="sw k"></span>Кредит (Кт) — права сторона</span>
+    </div>
+
+    <div class="callout" data-text="активи й витрати ростуть по дебету пасиви зобов'язання капітал і доходи ростуть по кредиту запам'ятай коротко">
+      Запам’ятай у два рядки:<br>
+      <b>Активи й витрати</b> ростуть по <span class="d">дебету</span>.<br>
+      <b>Зобов’язання, капітал і доходи</b> ростуть по <span class="k">кредиту</span>.
+    </div>
+  </section>
+
+  <!-- 2. Алгоритм -->
+  <section id="algo" data-sec style="--c:#0f766e;--cd:#0d5d57">
+    <div class="sec-h"><h2>2. Алгоритм для будь-якої операції</h2></div>
+    <div class="sec-sub">Не питай одразу «який рахунок дебетувати?». Іди по кроках.</div>
+    <div class="steps">
+      <div class="step" data-text="що змінилось гроші товари борг постачальнику дохід витрати зарплата податки">
+        <b>Що змінилось?</b>
+        <span class="ex">Гроші, товари, борг постачальнику, дохід, витрати, зарплата, податок…</span>
+      </div>
+      <div class="step" data-text="це актив зобов'язання капітал дохід чи витрата визнач тип рахунку">
+        <b>Це актив, зобов’язання, капітал, дохід чи витрата?</b>
+        <span class="ex">Визнач тип кожного з двох рахунків, що беруть участь в операції.</span>
+      </div>
+      <div class="step" data-text="воно збільшилось чи зменшилось напрям зміни">
+        <b>Воно збільшилось чи зменшилось?</b>
+        <span class="ex">Окремо для кожного рахунку: «▲ зросло» чи «▼ впало».</span>
+      </div>
+      <div class="step" data-text="постав дебет кредит за матрицею тип плюс напрям дає сторону">
+        <b>Постав Дт/Кт за матрицею.</b>
+        <span class="ex">Тип рахунку + напрям зміни однозначно дають сторону (Дт або Кт).</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Золота шпаргалка -->
+  <section id="cheat" data-sec style="--c:#7c3aed;--cd:#6d28d9">
+    <div class="sec-h"><h2>3. Золота шпаргалка</h2></div>
+    <div class="sec-sub">Не ідеальне правило, але закриває ~70% задач.</div>
+
+    <div class="callout" style="background:linear-gradient(135deg,#f5f3ff,#eff6ff);border-color:#e9d5ff"
+         data-text="що отримали куди прийшло в дебет звідки взялося джерело в кредит">
+      <span class="d">Що отримали / куди прийшло</span> — у <b style="color:#1d4ed8">Дебет</b>.<br>
+      <span class="k">Звідки взялося / джерело</span> — у <b style="color:#c2410c">Кредит</b>.
+    </div>
+
+    <div class="card2" data-text="отримали гроші в банку як кредит овердрафт надійшли гроші дт 31 джерело короткострокова позика кт 60">
+      <div class="name">Отримали гроші в банку (овердрафт / короткострокова позика)</div>
+      <div class="mini">Гроші прийшли → <b>Дт 31</b> · джерело — позика → <b>Кт 60</b> ⟶ <b>Дт 31 Кт 60</b></div>
+      <div class="why">Актив (гроші) зріс — по дебету; зобов’язання (позика) виникло — по кредиту.</div>
+    </div>
+    <div class="card2" data-text="отримали безоплатно виробничі запаси надійшли запаси дт 20 джерело дохід від безоплатно одержаних оборотних активів кт 718">
+      <div class="name">Безоплатно одержали виробничі запаси</div>
+      <div class="mini">Запаси прийшли → <b>Дт 20</b> · джерело — дохід → <b>Кт 718</b> ⟶ <b>Дт 20 Кт 718</b></div>
+      <div class="why">Актив (запаси) зріс — по дебету; визнано дохід — по кредиту.</div>
+    </div>
+  </section>
+
+  <!-- 4. Правила-якорі -->
+  <section id="anchors" data-sec style="--c:#c2410c;--cd:#9a3412">
+    <div class="sec-h"><h2>4. Швидкі правила-якорі</h2></div>
+    <div class="sec-sub">Те, що майже завжди працює без роздумів.</div>
+
+    <div class="card2" data-text="витрати майже завжди йдуть у дебет нараховано зарплату виробничникам дт 23 кт 661">
+      <div class="name">Витрати майже завжди → у <span style="color:#1d4ed8">Дебет</span></div>
+      <div class="mini">Нарахували зарплату виробничникам: витрати ▲ → <b>Дт 23</b>, борг перед працівниками ▲ → <b>Кт 661</b> ⟶ <b>Дт 23 Кт 661</b></div>
+      <div class="why">Будь-яке зростання витрат (виробництво, збут, адміністрація) — це дебет.</div>
+    </div>
+    <div class="card2" data-text="доходи майже завжди йдуть у кредит продали товар покупцю в борг дт 36 кт 702 списано собівартість дт 902 кт 28">
+      <div class="name">Доходи майже завжди → у <span style="color:#c2410c">Кредит</span></div>
+      <div class="mini">Продали товар у борг: дебіторка ▲ → <b>Дт 36</b>, дохід ▲ → <b>Кт 702</b> ⟶ <b>Дт 36 Кт 702</b></div>
+      <div class="mini">Одночасно списують собівартість: витрати ▲ → <b>Дт 902</b>, товари ▼ → <b>Кт 28</b> ⟶ <b>Дт 902 Кт 28</b></div>
+      <div class="why">Дохід визнають по кредиту, а собівартість проданого — окремим проведенням по дебету.</div>
+    </div>
+    <div class="card2" data-text="переміщення всередині активів один актив збільшується інший зменшується готова продукція з виробництва на склад дт 26 кт 23">
+      <div class="name">Переміщення всередині активів</div>
+      <div class="mini">Готову продукцію оприбуткували з виробництва: ГП ▲ → <b>Дт 26</b>, виробництво ▼ → <b>Кт 23</b> ⟶ <b>Дт 26 Кт 23</b></div>
+      <div class="why">Один актив зріс (дебет), інший на ту саму суму зменшився (кредит). Валюта балансу не змінюється.</div>
+    </div>
+  </section>
+
+  <!-- 5. Типові проведення -->
+  <section id="entries" data-sec style="--c:#0e7490;--cd:#155e75">
+    <div class="sec-h"><h2>5. Типові проведення</h2></div>
+    <div class="sec-sub">Шпаргалка проведень: операція → проведення → логіка. Натренуй ці — і решта почне «клацати».</div>
+    <div class="table-scroll">
+      <table class="entries">
+        <thead>
+          <tr><th>Операція</th><th>Проведення</th><th>Логіка (тип ± сторона)</th></tr>
+        </thead>
+        <tbody>
+          <tr data-text="куплено отримано товари в борг від постачальника дт 28 кт 63 товари актив збільшення борг зобов'язання">
+            <td class="op">Куплено товари в борг</td>
+            <td class="post"><span class="dt-b">Дт 28</span><span class="kt-b">Кт 63</span></td>
+            <td class="why">Товари (актив) ▲ → Дт; борг постачальнику (зобов’язання) ▲ → Кт.</td>
+          </tr>
+          <tr data-text="оплачено постачальнику з банку дт 63 кт 31 борг зобов'язання зменшення гроші актив">
+            <td class="op">Оплачено постачальнику з банку</td>
+            <td class="post"><span class="dt-b">Дт 63</span><span class="kt-b">Кт 31</span></td>
+            <td class="why">Борг (зобов’язання) ▼ → Дт; гроші (актив) ▼ → Кт.</td>
+          </tr>
+          <tr data-text="отримано короткостроковий кредит овердрафт у банку дт 31 кт 60 гроші актив позика зобов'язання">
+            <td class="op">Отримано короткострокову позику (овердрафт)</td>
+            <td class="post"><span class="dt-b">Дт 31</span><span class="kt-b">Кт 60</span></td>
+            <td class="why">Гроші (актив) ▲ → Дт; позика (зобов’язання) ▲ → Кт.</td>
+          </tr>
+          <tr data-text="безоплатно одержано виробничі запаси дт 20 кт 718 запаси актив дохід">
+            <td class="op">Безоплатно одержано виробничі запаси</td>
+            <td class="post"><span class="dt-b">Дт 20</span><span class="kt-b">Кт 718</span></td>
+            <td class="why">Запаси (актив) ▲ → Дт; дохід ▲ → Кт.</td>
+          </tr>
+          <tr data-text="нараховано зарплату зарплата заробітна плата виробничим працівникам дт 23 кт 661 витрати виробництво борг перед працівниками зобов'язання">
+            <td class="op">Нараховано зарплату виробничникам</td>
+            <td class="post"><span class="dt-b">Дт 23</span><span class="kt-b">Кт 661</span></td>
+            <td class="why">Витрати виробництва ▲ → Дт; борг перед працівниками (зобов’язання) ▲ → Кт.</td>
+          </tr>
+          <tr data-text="утримано пдфо із зарплати зарплата податок на доходи фізичних осіб дт 661 кт 641 борг перед працівником зобов'язання борг перед бюджетом податок">
+            <td class="op">Утримано ПДФО із зарплати</td>
+            <td class="post"><span class="dt-b">Дт 661</span><span class="kt-b">Кт 641</span></td>
+            <td class="why">Борг перед працівником ▼ → Дт; борг перед бюджетом ▲ → Кт.</td>
+          </tr>
+          <tr data-text="продано товар покупцю в борг реалізація дт 36 кт 702 дебіторська заборгованість актив дохід від реалізації">
+            <td class="op">Продано товар покупцю в борг</td>
+            <td class="post"><span class="dt-b">Дт 36</span><span class="kt-b">Кт 702</span></td>
+            <td class="why">Дебіторка покупця (актив) ▲ → Дт; дохід ▲ → Кт.</td>
+          </tr>
+          <tr data-text="списано собівартість реалізованих товарів дт 902 кт 28 витрати собівартість товари актив">
+            <td class="op">Списано собівартість реалізованих товарів</td>
+            <td class="post"><span class="dt-b">Дт 902</span><span class="kt-b">Кт 28</span></td>
+            <td class="why">Собівартість (витрати) ▲ → Дт; товари (актив) ▼ → Кт.</td>
+          </tr>
+          <tr data-text="оприбутковано готову продукцію з виробництва на склад дт 26 кт 23 готова продукція актив виробництво незавершене">
+            <td class="op">Оприбутковано готову продукцію на склад</td>
+            <td class="post"><span class="dt-b">Дт 26</span><span class="kt-b">Кт 23</span></td>
+            <td class="why">Готова продукція (актив) ▲ → Дт; виробництво (актив) ▼ → Кт.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. Рахунки, що згадані -->
+  <section id="accounts" data-sec style="--c:#475569;--cd:#334155">
+    <div class="sec-h"><h2>6. Рахунки з прикладів</h2></div>
+    <div class="sec-sub">Коротка розшифровка номерів рахунків, що використані вище (за Планом рахунків).</div>
+    <div class="accts">
+      <div data-text="20 виробничі запаси актив"><b>20</b> Виробничі запаси <span style="color:#1d4ed8">(актив)</span></div>
+      <div data-text="23 виробництво незавершене актив"><b>23</b> Виробництво <span style="color:#1d4ed8">(актив)</span></div>
+      <div data-text="26 готова продукція актив"><b>26</b> Готова продукція <span style="color:#1d4ed8">(актив)</span></div>
+      <div data-text="28 товари актив"><b>28</b> Товари <span style="color:#1d4ed8">(актив)</span></div>
+      <div data-text="31 рахунки в банках гроші актив"><b>31</b> Рахунки в банках <span style="color:#1d4ed8">(актив)</span></div>
+      <div data-text="36 розрахунки з покупцями дебіторська заборгованість актив"><b>36</b> Розрахунки з покупцями <span style="color:#1d4ed8">(актив)</span></div>
+      <div data-text="60 короткострокові позики зобов'язання"><b>60</b> Короткострокові позики <span style="color:#c2410c">(зобов’язання)</span></div>
+      <div data-text="63 розрахунки з постачальниками зобов'язання"><b>63</b> Розрахунки з постачальниками <span style="color:#c2410c">(зобов’язання)</span></div>
+      <div data-text="641 розрахунки за податками зобов'язання бюджет"><b>641</b> Розрахунки за податками <span style="color:#c2410c">(зобов’язання)</span></div>
+      <div data-text="661 розрахунки за виплатами працівникам зарплата зобов'язання"><b>661</b> Розрахунки з оплати праці <span style="color:#c2410c">(зобов’язання)</span></div>
+      <div data-text="702 дохід від реалізації товарів доходи"><b>702</b> Дохід від реалізації товарів <span style="color:#c2410c">(дохід)</span></div>
+      <div data-text="718 дохід від безоплатно одержаних оборотних активів доходи"><b>718</b> Дохід від безоплатно одержаних активів <span style="color:#c2410c">(дохід)</span></div>
+      <div data-text="902 собівартість реалізованих товарів витрати"><b>902</b> Собівартість реалізованих товарів <span style="color:#1d4ed8">(витрати)</span></div>
+    </div>
+  </section>
+
+  <!-- 7. Формула для іспиту -->
+  <section id="exam" data-sec style="--c:#16a34a;--cd:#15803d">
+    <div class="sec-h"><h2>7. Суперкоротка формула для іспиту</h2></div>
+    <div class="sec-sub">Постав собі 3 питання: що ▲ зросло? що ▼ впало (за рахунок чого)? який це тип рахунку?</div>
+    <div class="exam">
+      <div data-text="актив плюс дебет"><span class="lab">Актив ▲</span> = <span class="d">Дт</span></div>
+      <div data-text="актив мінус кредит"><span class="lab">Актив ▼</span> = <span class="k">Кт</span></div>
+      <div data-text="зобов'язання плюс кредит"><span class="lab">Зобов’язання ▲</span> = <span class="k">Кт</span></div>
+      <div data-text="зобов'язання мінус дебет"><span class="lab">Зобов’язання ▼</span> = <span class="d">Дт</span></div>
+      <div data-text="власний капітал плюс кредит"><span class="lab">Капітал ▲</span> = <span class="k">Кт</span></div>
+      <div data-text="дохід плюс кредит"><span class="lab">Дохід ▲</span> = <span class="k">Кт</span></div>
+      <div data-text="витрати плюс дебет"><span class="lab">Витрати ▲</span> = <span class="d">Дт</span></div>
+    </div>
+    <div class="tip" data-text="не вчи проведення списком натренуй 20 30 типових операцій і логіка спрацьовуватиме автоматично">
+      Не вчи проведення списком. Натренуй <b>20–30 типових операцій</b> — і далі воно почне «клацати» автоматично.
+    </div>
+  </section>
+
+  <div class="empty" id="empty">За запитом нічого не знайдено. Спробуйте інше слово.</div>
+</div>
+
+<footer>Бюлетень з кореспонденції рахунків · підготовка до ЄФВВ «Облік та фінанси»<div class="disclaimer">Неофіційний ресурс для самопідготовки. Не пов’язаний з МОН України чи УЦОЯО. Завдання авторські й не є офіційними завданнями ЄФВВ.</div></footer>
+
+<script>
+// nav chips
+const nav = document.getElementById('nav');
+const navItems = [
+  ["rule","1·Правило"],["algo","2·Алгоритм"],["cheat","3·Шпаргалка"],
+  ["anchors","4·Якорі"],["entries","5·Проведення"],["accounts","6·Рахунки"],["exam","7·Іспит"]
+];
+nav.innerHTML = '<a class="nav-home" href="index.html">← Головна</a>'
+  + '<a href="formulas.html">📐 Формули</a>'
+  + navItems.map(n=>`<a href="#${n[0]}">${n[1]}</a>`).join("");
+
+// ---- live search ----
+const search = document.getElementById('search');
+const empty = document.getElementById('empty');
+search.addEventListener('input', ()=>{
+  const q = search.value.trim().toLowerCase();
+  let anyVisible = false;
+  document.querySelectorAll('[data-sec]').forEach(sec=>{
+    let secVisible = false;
+    sec.querySelectorAll('[data-text]').forEach(el=>{
+      const match = !q || el.dataset.text.includes(q);
+      el.style.display = match ? "" : "none";
+      if(match) secVisible = true;
+    });
+    sec.style.display = secVisible ? "" : "none";
+    if(secVisible) anyVisible = true;
+  });
+  empty.style.display = anyVisible ? "none" : "block";
+});
+
+// зсув для якірних переходів = реальна висота липкого тулбару (+ невеликий відступ)
+const toolbar = document.querySelector('.toolbar');
+function setAnchorOffset(){
+  if(toolbar) document.documentElement.style.setProperty('--anchor-offset',(toolbar.offsetHeight+8)+'px');
+}
+setAnchorOffset();
+window.addEventListener('resize', setAnchorOffset);
+</script>
+</body>
+</html>

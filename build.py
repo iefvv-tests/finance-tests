@@ -32,7 +32,7 @@ PAGE = r"""<!DOCTYPE html>
 <header class="topbar" id="topbar">
   <span class="ttl"><span class="t-full">__H1__</span><span class="t-short">__SHORT__</span></span>
   <span class="pcount"><b id="answered">0</b>/<span id="total1"></span><span id="total2" hidden></span></span>
-  <nav class="menu"><a href="index.html">Головна</a><a href="formulas.html">Формули</a></nav>
+  <nav class="menu"><a href="index.html">Головна</a><a href="formulas.html">Формули</a><a href="correspondence.html">Дт/Кт</a></nav>
 </header>
 
 <div class="wrap" id="quiz"></div>
@@ -162,6 +162,12 @@ FORMULY_CARD = ('<a class="card" style="--c:#16a34a;--cd:#15803d" href="formulas
   '<div class="cb">Позначення · шаблони задач · чек-лист</div>'
   '<div class="go">Переглянути формули →</div></a>\n')
 
+CORR_CARD = ('<a class="card" style="--c:#2563eb;--cd:#1d4ed8" href="correspondence.html">'
+  '<div class="cn">📋 Кореспонденція рахунків · Дебет/Кредит</div>'
+  '<div class="cd">Стислий бюлетень: матриця Дт/Кт за типом рахунку, алгоритм і логіка проведень</div>'
+  '<div class="cb">Матриця · типові проведення · план рахунків</div>'
+  '<div class="go">Відкрити бюлетень →</div></a>\n')
+
 LANDING = """<!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -200,7 +206,7 @@ LANDING = """<!DOCTYPE html>
   <p>Єдине фахове вступне випробування · оберіть тест для проходження</p>
 </header>
 <div class="wrap">
-""" + FORMULY_CARD + card_html + """</div>
+""" + FORMULY_CARD + CORR_CARD + card_html + """</div>
 <footer>1 бал за кожну правильну відповідь · результат і правильні відповіді показуються після перевірки · для самопідготовки<div class="disclaimer">Неофіційний ресурс для самопідготовки. Не пов’язаний з МОН України чи УЦОЯО. Завдання авторські й не є офіційними завданнями ЄФВВ.</div></footer>
 </body>
 </html>"""

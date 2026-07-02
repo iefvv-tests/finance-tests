@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конспект · Облік та фінанси (ЄФВВ)</title>
+<meta name="description" content="Стислий конспект-теорія до ЄФВВ з обліку та фінансів за програмою (наказ МОН № 1362): основні тези, схеми і таблиці по темах кожного розділу. Для швидкого повторення перед іспитом.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Конспект · Облік та фінанси (ЄФВВ)">
+<meta property="og:description" content="Теорія до ЄФВВ по темах програми: основні тези, схеми і таблиці. Для швидкого повторення перед іспитом.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="assets/favicon.svg">
+<style>
+  :root{--bg:#f4f6fb;--ink:#1c2433;--muted:#6b7280;--line:#e3e8f0;--accent:#2563eb}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  header{background:linear-gradient(135deg,#1e293b,#334155);color:#fff;padding:34px 20px;text-align:center}
+  header h1{margin:0 0 6px;font-size:1.7rem}
+  header p{margin:0;opacity:.9}
+  .home{display:inline-block;margin-top:14px;color:#fff;background:rgba(255,255,255,.14);
+        text-decoration:none;padding:7px 16px;border-radius:9px;font-size:.85rem;font-weight:600}
+  .home:hover{background:rgba(255,255,255,.24)}
+  .wrap{max-width:880px;margin:0 auto;padding:20px 18px 60px}
+
+  /* toolbar: search + nav */
+  .toolbar{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 0 8px;margin-bottom:6px;
+           border-bottom:1px solid var(--line)}
+  section[data-sec]{scroll-margin-top:var(--anchor-offset,120px)}
+  .search{width:100%;padding:12px 16px;font-size:1rem;border:1px solid var(--line);border-radius:11px;
+          background:#fff;color:var(--ink);outline:none}
+  .search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+  .nav{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+  .nav a{text-decoration:none;font-size:.82rem;font-weight:600;color:#334155;background:#fff;
+         border:1px solid var(--line);padding:5px 11px;border-radius:20px}
+  .nav a:hover{border-color:var(--accent);color:var(--accent)}
+  .nav a.nav-home{color:#fff;background:var(--accent);border-color:var(--accent)}
+  .nav a.nav-home:hover{filter:brightness(.92)}
+
+  .note-top{background:#eef2ff;border:1px solid #dbe2ff;border-radius:12px;padding:12px 16px;
+            font-size:.9rem;color:#3b4a6b;margin:14px 0}
+
+  /* section (розділ) */
+  section{margin-top:30px}
+  .sec-h{display:flex;align-items:center;gap:10px;border-left:6px solid var(--c);padding-left:12px;margin-bottom:4px}
+  .sec-h h2{margin:0;font-size:1.34rem;color:var(--cd)}
+  .sec-sub{font-size:.86rem;color:var(--muted);margin:4px 0 8px 18px}
+  .sec-meta{margin:0 0 6px 18px;display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-size:.72rem;font-weight:700;border-radius:20px;padding:3px 10px;border:1px solid var(--line);background:#fff;color:#475569}
+  .tag.w{color:var(--cd);border-color:var(--c)}
+
+  /* тема card */
+  .theme{background:#fff;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:12px;
+     padding:16px 18px;margin:13px 0;box-shadow:0 1px 2px rgba(20,30,60,.04)}
+  .theme-h{font-weight:700;font-size:1.06rem;color:var(--cd);margin-bottom:4px;display:flex;
+           align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .lvl{font-size:.68rem;font-weight:700;color:#7c3f00;background:#fef3c7;border:1px solid #fde68a;
+       border-radius:20px;padding:2px 9px;white-space:nowrap}
+  .theme-body{margin-top:8px}
+  .theme-body>*:first-child{margin-top:0}
+  .theme-body p{margin:9px 0}
+
+  /* тези */
+  ul.pts{list-style:none;padding:0;margin:10px 0}
+  ul.pts li{position:relative;padding:3px 0 3px 20px;font-size:.94rem}
+  ul.pts li::before{content:"▸";position:absolute;left:2px;top:3px;color:var(--c);font-weight:800}
+  ul.pts li b{color:var(--cd)}
+
+  /* таблиці */
+  .tbl{overflow-x:auto;margin:12px 0}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;background:#fff}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  thead th{background:#f1f5fb;color:var(--cd);font-weight:700}
+  tbody tr:nth-child(even){background:#fafbfe}
+  td b,th b{color:var(--cd)}
+
+  /* схема / формула-блок */
+  .scheme{font-family:'Consolas','SF Mono',ui-monospace,monospace;font-size:.9rem;color:#0f172a;
+          background:#f6f8fc;border:1px solid #e7ecf5;border-radius:9px;padding:12px 14px;margin:12px 0;
+          white-space:pre-wrap;line-height:1.6}
+  .scheme .r{color:var(--cd);font-weight:700}
+
+  /* callout */
+  .callout{border-radius:10px;padding:11px 14px;margin:12px 0;font-size:.9rem;line-height:1.55}
+  .callout.warn{background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12}
+  .callout.tie{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+  .callout b{font-weight:700}
+
+  .empty{display:none;text-align:center;color:var(--muted);padding:40px;font-size:.95rem}
+  .soon{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:16px 18px;margin:24px 0;
+        color:var(--muted);font-size:.9rem}
+  .soon b{color:#334155}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;padding:24px 20px 0}
+  .disclaimer{max-width:660px;margin:10px auto 0;font-size:.72rem;line-height:1.45;color:var(--muted);opacity:.85}
+  mark{background:#fde68a;color:inherit;border-radius:3px;padding:0 1px}
+
+  /* ── мобільна адаптація: ~−20% від десктопу ── */
+  @media (max-width:560px){
+    html{font-size:80%}
+    header{padding:24px 16px}
+    .wrap{padding:14px 12px 48px}
+    .toolbar{padding:12px 0 6px}
+    .search{font-size:16px;padding:10px 13px}
+    .nav a{padding:4px 9px}
+    .note-top{padding:10px 13px}
+    .sec-sub,.sec-meta{margin-left:12px}
+    .theme{padding:13px 14px}
+    th,td{padding:6px 8px}
+    .scheme{padding:10px 11px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Конспект · Облік та фінанси</h1>
+  <p>Теорія по темах програми ЄФВВ (1–8) · тези, схеми, таблиці</p>
+  <a class="home" href="index.html">← На головну</a>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <input id="search" class="search" type="search" placeholder="🔍 Пошук по темах, тезах і таблицях…" autocomplete="off">
+    <nav class="nav" id="nav"></nav>
+  </div>
+
+  <div class="note-top">
+    Стислий конспект для повторення теорії перед тестом — по темах кожного розділу програми (без дроблення на підтеми).
+    Формули для задач винесені в окремий <a href="formulas.html">формульний лист</a>, а типові проведення — у <a href="correspondence.html">бюлетень Дт/Кт</a>.
+  </div>
+
+  <div id="content"></div>
+  <div class="empty" id="empty">За запитом нічого не знайдено. Спробуйте інше слово.</div>
+
+  <div class="soon" id="soon"></div>
+</div>
+
+<footer>Конспект-теорія за програмою ЄФВВ «Облік та фінанси» (наказ МОН від 15.10.2025 № 1362)<div class="disclaimer">Неофіційний ресурс для самопідготовки. Не пов’язаний з МОН України чи УЦОЯО. Матеріал авторський, спрощений для повторення й не є офіційним джерелом.</div></footer>
+
+<script>
+const palette = [
+  {c:"#2563eb",cd:"#1d4ed8"},
+  {c:"#0f766e",cd:"#0d5d57"},
+  {c:"#7c3aed",cd:"#6d28d9"},
+  {c:"#c2410c",cd:"#9a3412"},
+  {c:"#0e7490",cd:"#155e75"},
+  {c:"#334155",cd:"#1e293b"}
+];
+
+// SECTIONS: розділ → { id, nav, title, weight, base, sub, themes:[{name, level, html}] }
+const SECTIONS = [
+  {
+    id:"r1", nav:"1 · Звітність",
+    title:"Розділ 1. Фінансова звітність підприємств за НП(С)БО",
+    weight:"Питома вага: 8–12%",
+    base:"Основа: НП(С)БО 1 «Загальні вимоги до фінансової звітності»",
+    sub:"Склад і принципи звітності, структура балансу, формування прибутку та рух грошових коштів.",
+    themes:[
+      {
+        name:"1.1 Загальні вимоги до фінансової звітності",
+        level:"рівень А–В",
+        html:`
+          <p><b>Мета фінансової звітності</b> — надати користувачам повну, правдиву й неупереджену інформацію про
+          <b>фінансовий стан, результати діяльності та рух грошових коштів</b> підприємства для прийняття економічних рішень.</p>
+
+          <p><b>Склад повного комплекту звітності — 5 форм:</b></p>
+          <div class="tbl"><table>
+            <thead><tr><th>Форма</th><th>Назва</th><th>Що показує</th><th>Тип</th></tr></thead>
+            <tbody>
+              <tr><td><b>Ф.1</b></td><td>Баланс (Звіт про фінансовий стан)</td><td>Активи, капітал, зобов’язання <b>на дату</b></td><td>Моментний (сальдовий)</td></tr>
+              <tr><td><b>Ф.2</b></td><td>Звіт про фінансові результати (Звіт про сукупний дохід)</td><td>Доходи, витрати, прибуток <b>за період</b></td><td>Інтервальний</td></tr>
+              <tr><td><b>Ф.3</b></td><td>Звіт про рух грошових коштів</td><td>Надходження / вибуття грошей за період</td><td>Інтервальний</td></tr>
+              <tr><td><b>Ф.4</b></td><td>Звіт про власний капітал</td><td>Зміни складових власного капіталу</td><td>Інтервальний</td></tr>
+              <tr><td><b>Ф.5</b></td><td>Примітки до фінансової звітності</td><td>Розшифровки й пояснення</td><td>—</td></tr>
+            </tbody>
+          </table></div>
+
+          <ul class="pts">
+            <li><b>Звітний період</b> — календарний рік; проміжна звітність — квартальна (наростаючим підсумком).</li>
+            <li><b>Якісні характеристики</b> інформації: зрозумілість, доречність, достовірність, зіставність.</li>
+          </ul>
+
+          <p><b>10 принципів підготовки звітності</b> (часте питання):</p>
+          <div class="tbl"><table>
+            <thead><tr><th>Принцип</th><th>Суть</th></tr></thead>
+            <tbody>
+              <tr><td><b>Автономності</b></td><td>Підприємство відокремлене від власників; майно власників — не в балансі</td></tr>
+              <tr><td><b>Безперервності</b></td><td>Підприємство діятиме й далі, ліквідація не планується</td></tr>
+              <tr><td><b>Періодичності</b></td><td>Діяльність поділяється на звітні періоди</td></tr>
+              <tr><td><b>Історичної (фактичної) собівартості</b></td><td>Активи — за фактичними витратами на придбання / виробництво</td></tr>
+              <tr><td><b>Нарахування</b></td><td>Доходи й витрати визнають у періоді <b>виникнення</b>, незалежно від дати оплати</td></tr>
+              <tr><td><b>Повного висвітлення</b></td><td>Уся суттєва інформація має бути у звітності</td></tr>
+              <tr><td><b>Послідовності</b></td><td>Незмінність облікової політики з року в рік</td></tr>
+              <tr><td><b>Обачності (обережності)</b></td><td>Не завищувати активи / доходи й не занижувати зобов’язання / витрати</td></tr>
+              <tr><td><b>Превалювання сутності над формою</b></td><td>Операції оцінюють за економічним змістом, а не лише за юридичною формою</td></tr>
+              <tr><td><b>Єдиного грошового вимірника</b></td><td>Усе вимірюється в єдиній грошовій одиниці (грн)</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        name:"1.2 Баланс (Звіт про фінансовий стан)",
+        level:"рівень B–C",
+        html:`
+          <p><b>Призначення:</b> показує <b>фінансовий стан на певну дату</b> — які ресурси має підприємство (актив)
+          і за рахунок яких джерел вони сформовані (пасив).</p>
+
+          <div class="scheme"><span class="r">АКТИВИ = ВЛАСНИЙ КАПІТАЛ + ЗОБОВ’ЯЗАННЯ</span>
+Актив = Пасив  →  підсумки завжди рівні («валюта балансу»)</div>
+
+          <ul class="pts">
+            <li><b>Критерії визнання активу:</b> є контроль + очікуються майбутні економічні вигоди + вартість можна достовірно оцінити.</li>
+          </ul>
+
+          <p><b>Структура АКТИВУ</b> (розміщений за зростанням ліквідності):</p>
+          <div class="tbl"><table>
+            <thead><tr><th>Розділ активу</th><th>Склад</th><th>Ознака</th></tr></thead>
+            <tbody>
+              <tr><td><b>I. Необоротні активи</b></td><td>Нематеріальні активи, основні засоби, довгострокові фінансові інвестиції, довгострокова дебіторська заборгованість</td><td>Використання <b>&gt; 1 року</b> (операційного циклу)</td></tr>
+              <tr><td><b>II. Оборотні активи</b></td><td>Запаси, дебіторська заборгованість, поточні фінінвестиції, гроші та еквіваленти</td><td>Використання <b>≤ 1 року</b></td></tr>
+              <tr><td><b>III. Необоротні активи, утримувані для продажу</b></td><td>Активи групи вибуття</td><td>—</td></tr>
+            </tbody>
+          </table></div>
+
+          <p><b>Структура ПАСИВУ</b> (джерела):</p>
+          <div class="tbl"><table>
+            <thead><tr><th>Розділ пасиву</th><th>Склад</th></tr></thead>
+            <tbody>
+              <tr><td><b>I. Власний капітал</b></td><td>Зареєстрований (пайовий) капітал, капітал у дооцінках, додатковий, резервний, нерозподілений прибуток (непокритий збиток), неоплачений та вилучений капітал <b>(зі знаком «−»)</b></td></tr>
+              <tr><td><b>II. Довгострокові зобов’язання і забезпечення</b></td><td>Довгострокові кредити, відстрочені податкові зобов’язання</td></tr>
+              <tr><td><b>III. Поточні зобов’язання і забезпечення</b></td><td>Короткострокові кредити, кредиторська заборгованість, зобов’язання з оплати праці й податків</td></tr>
+              <tr><td><b>IV. Зобов’язання, пов’язані з необоротними активами, утримуваними для продажу</b></td><td>—</td></tr>
+            </tbody>
+          </table></div>
+
+          <p><b>Оцінка ключових статей у балансі</b> (важливо для задач):</p>
+          <div class="tbl"><table>
+            <thead><tr><th>Стаття</th><th>За якою вартістю в балансі</th></tr></thead>
+            <tbody>
+              <tr><td>Основні засоби, НМА</td><td><b>Залишкова = Первісна − Накопичена амортизація (знос)</b></td></tr>
+              <tr><td>Запаси</td><td><b>Найменша з двох:</b> собівартість або чиста вартість реалізації</td></tr>
+              <tr><td>Дебіторська заборгованість за товари</td><td><b>Чиста реалізаційна вартість = Первісна − Резерв сумнівних боргів</b></td></tr>
+              <tr><td>Готова продукція</td><td>Виробнича собівартість</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        name:"1.3 Звіт про фінансові результати (Звіт про сукупний дохід)",
+        level:"рівень B–C",
+        html:`
+          <p><b>Призначення:</b> показує <b>доходи, витрати та фінансовий результат</b> (прибуток / збиток) за звітний період.</p>
+          <ul class="pts">
+            <li><b>Дохід</b> визнається при збільшенні активу або зменшенні зобов’язання, що зумовлює зростання власного капіталу (окрім внесків власників), за умови достовірної оцінки.</li>
+            <li><b>Витрати</b> визнаються при зменшенні активу або збільшенні зобов’язання, що зумовлює зменшення власного капіталу (окрім вилучень власниками).</li>
+            <li>Діє принцип <b>нарахування та відповідності</b> доходів і витрат.</li>
+          </ul>
+
+          <p><b>Схема формування чистого прибутку</b> (розділ I):</p>
+          <div class="scheme">   Чистий дохід від реалізації продукції
+ − Собівартість реалізованої продукції
+ ─────────────────────────────────────
+ <span class="r">= ВАЛОВИЙ ПРИБУТОК (збиток)</span>
+ + Інші операційні доходи
+ − Адміністративні витрати
+ − Витрати на збут
+ − Інші операційні витрати
+ ─────────────────────────────────────
+ <span class="r">= ФІН. РЕЗУЛЬТАТ ВІД ОПЕРАЦІЙНОЇ ДІЯЛЬНОСТІ</span>
+ + Дохід від участі в капіталі, інші фінансові та інші доходи
+ − Фінансові витрати, втрати від участі в капіталі, інші витрати
+ ─────────────────────────────────────
+ <span class="r">= ФІН. РЕЗУЛЬТАТ ДО ОПОДАТКУВАННЯ</span>
+ − Витрати з податку на прибуток
+ ─────────────────────────────────────
+ <span class="r">= ЧИСТИЙ ФІНАНСОВИЙ РЕЗУЛЬТАТ (прибуток / збиток)</span></div>
+
+          <p><b>Структура звіту — 4 розділи:</b></p>
+          <div class="tbl"><table>
+            <thead><tr><th>Розділ</th><th>Зміст</th></tr></thead>
+            <tbody>
+              <tr><td><b>I. Фінансові результати</b></td><td>Схема вище</td></tr>
+              <tr><td><b>II. Сукупний дохід</b></td><td>Чистий прибуток + інший сукупний дохід (напр., дооцінка)</td></tr>
+              <tr><td><b>III. Елементи операційних витрат</b></td><td>Групування витрат за економічними елементами</td></tr>
+              <tr><td><b>IV. Прибутковість акцій</b></td><td>Розрахунок показників прибутковості акцій (для АТ)</td></tr>
+            </tbody>
+          </table></div>
+
+          <p><b>Елементи операційних витрат</b> (розділ III) — за економічним змістом, 5 елементів:</p>
+          <ul class="pts">
+            <li>Матеріальні затрати</li>
+            <li>Витрати на оплату праці</li>
+            <li>Відрахування на соціальні заходи (ЄСВ)</li>
+            <li>Амортизація</li>
+            <li>Інші операційні витрати</li>
+          </ul>
+
+          <div class="callout warn"><b>Не плутати:</b> у розділі I витрати згруповані <b>за функцією</b> (собівартість, адміністративні, збут), а в розділі III — ті самі операційні витрати <b>за економічними елементами</b>.</div>
+        `
+      },
+      {
+        name:"1.4 Звіт про рух грошових коштів",
+        level:"рівень В",
+        html:`
+          <p><b>Призначення:</b> показує <b>надходження і вибуття грошових коштів</b> та їх еквівалентів за період
+          у розрізі <b>трьох видів діяльності</b>.</p>
+
+          <div class="tbl"><table>
+            <thead><tr><th>Вид діяльності</th><th>Приклади грошових потоків</th></tr></thead>
+            <tbody>
+              <tr><td><b>Операційна</b></td><td>Основна діяльність: надходження від покупців; оплата постачальникам, зарплата, податки</td></tr>
+              <tr><td><b>Інвестиційна</b></td><td>Придбання / продаж необоротних активів і фінансових інвестицій; отримані відсотки та дивіденди</td></tr>
+              <tr><td><b>Фінансова</b></td><td>Отримання / погашення кредитів, емісія акцій, виплата дивідендів</td></tr>
+            </tbody>
+          </table></div>
+
+          <p><b>Два методи складання</b> (стосуються операційної частини):</p>
+          <div class="tbl"><table>
+            <thead><tr><th>Метод</th><th>Суть</th><th>Застосування</th></tr></thead>
+            <tbody>
+              <tr><td><b>Прямий</b></td><td>Розкриває основні види валових грошових <b>надходжень і виплат</b> (від виручки, постачальникам тощо)</td><td>Інвестиційна та фінансова частини — завжди прямим</td></tr>
+              <tr><td><b>Непрямий</b></td><td><b>Чистий прибуток коригується</b> на негрошові операції (амортизація) та зміни в оборотних активах і поточних зобов’язаннях</td><td>За НП(С)БО 1 операційну частину складають непрямим методом</td></tr>
+            </tbody>
+          </table></div>
+
+          <p><b>Логіка непрямого методу</b> (операційна діяльність):</p>
+          <div class="scheme"> Чистий прибуток (збиток)
+ + Амортизація необоротних активів        (негрошова витрата)
+ ± Зміни забезпечень
+ − Збільшення оборотних активів / + зменшення
+ + Збільшення поточних зобов’язань / − зменшення
+ ─────────────────────────────────────
+ <span class="r">= Чистий рух коштів від операційної діяльності</span></div>
+
+          <p><b>Підсумок звіту:</b></p>
+          <div class="scheme"><span class="r">Чистий рух коштів = ЧРК(операц.) + ЧРК(інвест.) + ЧРК(фін.)</span>
+Залишок на кінець = Залишок на початок + Чистий рух ± Вплив зміни валютних курсів</div>
+        `
+      },
+      {
+        name:"Зв’язки між формами (як усе тримається разом)",
+        level:"важливо",
+        html:`
+          <div class="callout tie">
+            <ul class="pts" style="margin:0">
+              <li><b>Чистий прибуток</b> зі Звіту про фінрезультати (Ф.2) → потрапляє в <b>нерозподілений прибуток</b> Балансу (Ф.1) і Звіт про власний капітал (Ф.4), а також є відправною точкою непрямого методу у ЗРГК (Ф.3).</li>
+              <li><b>Гроші та еквіваленти</b> на кінець періоду у ЗРГК (Ф.3) = рядок «Гроші» в оборотних активах Балансу (Ф.1).</li>
+              <li><b>Амортизація</b> одночасно: зменшує залишкову вартість основних засобів у Балансі, є елементом операційних витрат у Ф.2 і коригуванням у Ф.3.</li>
+            </ul>
+          </div>
+        `
+      }
+    ]
+  }
+];
+
+// решта розділів — у роботі; показуємо як план
+const UPCOMING = [
+  "Розділ 2. Фінансовий аналіз",
+  "Розділ 3. Оподаткування",
+  "Розділ 4. Бюджетна та податкова система",
+  "Розділ 5. Фінансовий облік за НП(С)БО",
+  "Розділ 6. Управлінський облік",
+  "Розділ 7. Фінанси підприємств",
+  "Розділ 8. Банківська справа, страхування та фондовий ринок"
+];
+
+// ---- render ----
+const content = document.getElementById('content');
+const nav = document.getElementById('nav');
+const stripTags = h => h.replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim().toLowerCase();
+
+let html = "";
+SECTIONS.forEach((sec,i)=>{
+  const p = palette[i % palette.length];
+  const themes = sec.themes.map(t=>{
+    const dt = stripTags(t.name + " " + t.html);
+    return `<div class="theme" data-text="${dt.replace(/"/g,'&quot;')}">
+      <div class="theme-h"><span>${t.name}</span><span class="lvl">${t.level}</span></div>
+      <div class="theme-body">${t.html}</div>
+    </div>`;
+  }).join("");
+  html += `<section id="${sec.id}" data-sec style="--c:${p.c};--cd:${p.cd}">
+    <div class="sec-h"><h2>${sec.title}</h2></div>
+    <div class="sec-meta"><span class="tag w">${sec.weight}</span><span class="tag">${sec.base}</span></div>
+    <div class="sec-sub">${sec.sub}</div>
+    ${themes}
+  </section>`;
+});
+content.innerHTML = html;
+
+// nav chips
+nav.innerHTML = `<a class="nav-home" href="index.html">← Головна</a>`
+  + `<a href="formulas.html">📘 Формули</a>`
+  + `<a href="correspondence.html">📋 Дт/Кт</a>`
+  + SECTIONS.map(s=>`<a href="#${s.id}">${s.nav}</a>`).join("");
+
+// план наступних розділів
+document.getElementById('soon').innerHTML =
+  `<b>Далі в конспекті:</b> ${UPCOMING.join(" · ")}. Розділи додаються поступово за програмою.`;
+
+// ---- live search ----
+const search = document.getElementById('search');
+const empty = document.getElementById('empty');
+const soon = document.getElementById('soon');
+search.addEventListener('input', ()=>{
+  const q = search.value.trim().toLowerCase();
+  let anyVisible = false;
+  soon.style.display = q ? "none" : "";
+  document.querySelectorAll('[data-sec]').forEach(sec=>{
+    let secVisible = false;
+    sec.querySelectorAll('.theme').forEach(el=>{
+      const match = !q || el.dataset.text.includes(q);
+      el.style.display = match ? "" : "none";
+      if(match) secVisible = true;
+    });
+    sec.style.display = secVisible ? "" : "none";
+    if(secVisible) anyVisible = true;
+  });
+  empty.style.display = anyVisible ? "none" : "block";
+});
+
+// зсув для якірних переходів = висота липкого тулбару
+const toolbar = document.querySelector('.toolbar');
+function setAnchorOffset(){
+  if(toolbar) document.documentElement.style.setProperty('--anchor-offset',(toolbar.offsetHeight+8)+'px');
+}
+setAnchorOffset();
+window.addEventListener('resize', setAnchorOffset);
+</script>
+</body>
+</html>

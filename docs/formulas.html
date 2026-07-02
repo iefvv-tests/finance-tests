@@ -557,7 +557,7 @@ content.innerHTML = html;
 
 // nav chips
 const navItems = [["abbr","Позначення"],["r1","1·Звітність"],["r2","2·Аналіз"],["r3tax","3·Податки"],["r4bud","4·Бюджет"],["r5acc","5·Амортизація"],["r6mgmt","6·Управл. облік"],["r7fin","7·Фінанси"],["r8bank","8·Гроші/банки"],["tpl","Шаблони"],["check","Чек-лист"],["src","Джерела"]];
-nav.innerHTML = `<a class="nav-home" href="index.html">← Головна</a>` + `<a href="correspondence.html">📋 Дт/Кт</a>` + navItems.map(n=>`<a href="#${n[0]}">${n[1]}</a>`).join("");
+nav.innerHTML = `<a class="nav-home" href="index.html">← Головна</a>` + `<a href="konspekt.html">📗 Конспект</a>` + `<a href="correspondence.html">📋 Дт/Кт</a>` + navItems.map(n=>`<a href="#${n[0]}">${n[1]}</a>`).join("");
 
 // ---- live search ----
 const search = document.getElementById('search');
